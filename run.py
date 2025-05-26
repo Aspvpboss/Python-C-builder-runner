@@ -1,3 +1,4 @@
+import keyboard
 import os
 from sys import exit
 
@@ -8,16 +9,22 @@ class Main:
     def __init__(self):
         
         current_path = os.path.dirname(os.path.abspath(__file__))
-        os.chdir(current_path)
-        self.mode_selecter = str(input("b: build\nr: run \nbr: build and run\na: build and run every file\n"))
+        os.chdir(current_path)  
+        
+        # handles inputs
+        print("type one of the options, then press left shift\nb : build\nr : run\nbr : build and run\na : build and run all files\n")
+        self.mode_selecter = list(keyboard.get_typed_strings(keyboard.record('shift')))[0]
         if self.mode_selecter != "b" and self.mode_selecter != "r" and self.mode_selecter != "br" and self.mode_selecter != "a": 
             print("INPUT ERROR: mode_selecter was an given incorrect input")
             exit()
         if self.mode_selecter != "a":
-            self.file_selecter = str(input("type specific file name or type 'all' to do all\n"))        
+            print("type either what file you want or type 'all' for all files, then press left shift\n")
+            self.file_selecter = list(keyboard.get_typed_strings(keyboard.record('shift')))[0]
         else:
             self.file_selecter = "all"
             self.mode_selecter = "br"
+        print("\n\n\n\n\n\n\n")
+
         # put file variables
         # add extra files to compile more than one
         # can also add variables for including external librarys
